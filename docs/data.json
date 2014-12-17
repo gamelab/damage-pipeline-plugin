@@ -1,0 +1,1606 @@
+{
+    "project": {
+        "name": "damage-pipeline",
+        "description": "This plugin processes damage through a node network, allowing for advanced damage processing effects.",
+        "version": "1.0.0",
+        "url": "http://kiwijs.org/"
+    },
+    "files": {
+        "src/_damage-pipeline-main.js": {
+            "name": "src/_damage-pipeline-main.js",
+            "modules": {
+                "Plugins": 1
+            },
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Kiwi.Plugins": 1
+            }
+        },
+        "src/pack.js": {
+            "name": "src/pack.js",
+            "modules": {
+                "Pack": 1
+            },
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.Pack": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            }
+        },
+        "src/pipeline-node-base.js": {
+            "name": "src/pipeline-node-base.js",
+            "modules": {
+                "PipelineNode": 1
+            },
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.PipelineNode": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            }
+        },
+        "src/pipeline-node-meter.js": {
+            "name": "src/pipeline-node-meter.js",
+            "modules": {
+                "MeterNode": 1
+            },
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.MeterNode": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            }
+        }
+    },
+    "modules": {
+        "Kiwi": {
+            "name": "Kiwi",
+            "submodules": {
+                "Plugins": 1
+            },
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Kiwi.Plugins": 1
+            },
+            "file": "src/_damage-pipeline-main.js",
+            "line": 1
+        },
+        "Plugins": {
+            "name": "Plugins",
+            "submodules": {},
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Kiwi.Plugins": 1
+            },
+            "module": "Kiwi",
+            "namespace": "",
+            "file": "src/_damage-pipeline-main.js",
+            "line": 1,
+            "description": "Damage Pipeline encompasses methods to perform advanced damage processing."
+        },
+        "Kiwi.Plugins": {
+            "name": "Kiwi.Plugins",
+            "submodules": {
+                "Pack": 1,
+                "PipelineNode": 1,
+                "MeterNode": 1
+            },
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.Pack": 1,
+                "Kiwi.Plugins.DamagePipeline.PipelineNode": 1,
+                "Kiwi.Plugins.DamagePipeline.MeterNode": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "file": "src/pipeline-node-meter.js",
+            "line": 7
+        },
+        "Pack": {
+            "name": "Pack",
+            "submodules": {},
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.Pack": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "module": "Kiwi.Plugins",
+            "namespace": "",
+            "file": "src/pack.js",
+            "line": 7,
+            "description": "Damage Pack, a message containing information about incoming damage."
+        },
+        "PipelineNode": {
+            "name": "PipelineNode",
+            "submodules": {},
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.PipelineNode": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "module": "Kiwi.Plugins",
+            "namespace": "",
+            "file": "src/pipeline-node-base.js",
+            "line": 7,
+            "description": "Pipeline Node, a pipeline object that processes Pack objects.\n\t<br><br>\n\tA PipelineNode receives Packs, performs some operation on them, and then\n\tnormally passes them on to one or another of its children.\n\tTypically if a Pack becomes exhausted it is simply removed and\n\tno children are called. The PipelineNode has no knowledge of stack;\n\tit can only direct dispatches to its children and expects no response.\n\t<br><br>\n\tYou may customise this node extensively just using the params object.\n\tAdd children of type PipelineNode or MeterNode, then define\n\tan operation function that processes Packs and forwards them\n\tto children using \"getChildByName\".\n\t<br><br>\n\tTo create nodes with your own functionality, use the\n\t<code>Kiwi.extend</code> method, and overwrite the\n\t<code>_operate</code> function with your own custom code.\n\t<br><br>\n\n\t\t// Extend this code only if normal customisation is insufficient\n\t\tvar MyNode = function( params ) {\n\t\t\n\t\t\t// Super\n\t\t\tKiwi.Plugins.DamagePipeline.PipelineNode.call( this, params );\n\t\t\n\t\t\t// Your constructor code goes here\n\t\t};\n\t\tKiwi.extend( MyNode, Kiwi.Plugins.DamagePipeline.PipelineNode );\n\t\t\n\t\tMyNode.prototype._operate = function( pack ) {\n\t\t\t// Your operation goes here\n\t\t};"
+        },
+        "MeterNode": {
+            "name": "MeterNode",
+            "submodules": {},
+            "classes": {
+                "Kiwi.Plugins.DamagePipeline.MeterNode": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Kiwi.Plugins.DamagePipeline": 1
+            },
+            "module": "Kiwi.Plugins",
+            "namespace": "",
+            "file": "src/pipeline-node-meter.js",
+            "line": 7,
+            "description": "Meter Node, a pipeline object that extends the standard\n\tPipeline Node with a meter.\n<br><br>\nThe Meter Node has several built-in functions.\n\tEach receives a Pack as its argument.\n\tYou can override these to perform custom functionality.\n\t<ul>\n\t<li><code>doOnReceive</code>: called when the node receives a Pack.\n\tDefault behaviour: Apply Pack to meter</li>\n\t<li><code>doOnZero</code>: called when the node drops to 0.\n\tDefault behaviour: None</li>\n\t<li><code>doOnMax</code>: called when the node rises to maximum.\n\tDefault behaviour: None</li>\n\t<li><code>doOnBreak</code>: called when the node drops below 0.\n\tDefault behaviour: None</li>\n\t<li><code>doOnOverflow</code>: called when the node rises above maximum.\n\tDefault behaviour: None</li>\n\t</ul>\n<br><br>\nThe Pipeline Node inherits all functionality of the Pipeline Node,\n\tbut it implements a custom version of the <code>_operation</code> method.\n\tYou should override the above functions instead.\n\tAs an extension of PipelineNode, the MeterNode will automatically\n\tprocess all packs and subpacks in bottom-up order. You do not need to\n\twrite methods to deal with subpacks."
+        }
+    },
+    "classes": {
+        "Kiwi.Plugins.DamagePipeline": {
+            "name": "Kiwi.Plugins.DamagePipeline",
+            "shortname": "Kiwi.Plugins.DamagePipeline",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Kiwi",
+            "submodule": "Plugins",
+            "namespace": "Kiwi.Plugins",
+            "file": "src/_damage-pipeline-main.js",
+            "line": 1,
+            "description": "Damage Pipeline encompasses methods to perform advanced damage processing."
+        },
+        "Kiwi.Plugins.DamagePipeline.Pack": {
+            "name": "Kiwi.Plugins.DamagePipeline.Pack",
+            "shortname": "Pack",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline",
+            "file": "src/pack.js",
+            "line": 7,
+            "description": "Damage Pack, a message containing information about incoming damage.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "params",
+                    "description": "Parameter object",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "value",
+                            "description": "Value of the damage pack",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "mode",
+                            "description": "Operational mode: one of\n\tKiwi.Plugins.DamagePipeline.Pack.prototype.SUBTRACT (default),\n\tKiwi.Plugins.DamagePipeline.Pack.prototype.ADD, or\n\tKiwi.Plugins.DamagePipeline.Pack.prototype.SET.\n\tYou may also use string shortcuts \"ADD\", \"SET\", and \"SUBTRACT\".",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "owner",
+                            "description": "Whosoever dealt it.",
+                            "type": "Object",
+                            "optional": true
+                        },
+                        {
+                            "name": "subPacks",
+                            "description": "List of subordinate Packs.",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "["
+                        },
+                        {
+                            "name": "tags",
+                            "description": "List of tags for this pack,\n\tas strings or numbers.",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "["
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Kiwi.Plugins.DamagePipeline.Pack"
+            },
+            "since": "0.1.0"
+        },
+        "Kiwi.Plugins.DamagePipeline.PipelineNode": {
+            "name": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "shortname": "PipelineNode",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline",
+            "file": "src/pipeline-node-base.js",
+            "line": 7,
+            "description": "Pipeline Node, a pipeline object that processes Pack objects.\n\t<br><br>\n\tA PipelineNode receives Packs, performs some operation on them, and then\n\tnormally passes them on to one or another of its children.\n\tTypically if a Pack becomes exhausted it is simply removed and\n\tno children are called. The PipelineNode has no knowledge of stack;\n\tit can only direct dispatches to its children and expects no response.\n\t<br><br>\n\tYou may customise this node extensively just using the params object.\n\tAdd children of type PipelineNode or MeterNode, then define\n\tan operation function that processes Packs and forwards them\n\tto children using \"getChildByName\".\n\t<br><br>\n\tTo create nodes with your own functionality, use the\n\t<code>Kiwi.extend</code> method, and overwrite the\n\t<code>_operate</code> function with your own custom code.\n\t<br><br>\n\n\t\t// Extend this code only if normal customisation is insufficient\n\t\tvar MyNode = function( params ) {\n\t\t\n\t\t\t// Super\n\t\t\tKiwi.Plugins.DamagePipeline.PipelineNode.call( this, params );\n\t\t\n\t\t\t// Your constructor code goes here\n\t\t};\n\t\tKiwi.extend( MyNode, Kiwi.Plugins.DamagePipeline.PipelineNode );\n\t\t\n\t\tMyNode.prototype._operate = function( pack ) {\n\t\t\t// Your operation goes here\n\t\t};",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "params",
+                    "description": "Parameter object",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "children",
+                            "description": "Array of child nodes, or a single node",
+                            "type": "Array",
+                            "optional": true
+                        },
+                        {
+                            "name": "name",
+                            "description": "Unique identifier for this node",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "defaultChildIndex",
+                            "description": "Default output",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "doDefaultDispatch",
+                            "description": "Send packs to default output?",
+                            "type": "Boolean",
+                            "optional": true
+                        },
+                        {
+                            "name": "operation",
+                            "description": "Function to run on received Packs",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "processOnReceive",
+                            "description": "Whether to process immediately",
+                            "type": "Boolean",
+                            "optional": true
+                        },
+                        {
+                            "name": "processTopDown",
+                            "description": "Whether to process top-down",
+                            "type": "Boolean",
+                            "optional": true
+                        },
+                        {
+                            "name": "tags",
+                            "description": "Array of tags, or a single tag",
+                            "type": "Array",
+                            "optional": true
+                        }
+                    ]
+                }
+            ],
+            "since": "0.1.0"
+        },
+        "Kiwi.Plugins.DamagePipeline.MeterNode": {
+            "name": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "shortname": "MeterNode",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline",
+            "file": "src/pipeline-node-meter.js",
+            "line": 7,
+            "description": "Meter Node, a pipeline object that extends the standard\n\tPipeline Node with a meter.\n<br><br>\nThe Meter Node has several built-in functions.\n\tEach receives a Pack as its argument.\n\tYou can override these to perform custom functionality.\n\t<ul>\n\t<li><code>doOnReceive</code>: called when the node receives a Pack.\n\tDefault behaviour: Apply Pack to meter</li>\n\t<li><code>doOnZero</code>: called when the node drops to 0.\n\tDefault behaviour: None</li>\n\t<li><code>doOnMax</code>: called when the node rises to maximum.\n\tDefault behaviour: None</li>\n\t<li><code>doOnBreak</code>: called when the node drops below 0.\n\tDefault behaviour: None</li>\n\t<li><code>doOnOverflow</code>: called when the node rises above maximum.\n\tDefault behaviour: None</li>\n\t</ul>\n<br><br>\nThe Pipeline Node inherits all functionality of the Pipeline Node,\n\tbut it implements a custom version of the <code>_operation</code> method.\n\tYou should override the above functions instead.\n\tAs an extension of PipelineNode, the MeterNode will automatically\n\tprocess all packs and subpacks in bottom-up order. You do not need to\n\twrite methods to deal with subpacks.",
+            "is_constructor": 1,
+            "extends": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "Parameter object",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "children",
+                            "description": "Array of child nodes, or a single node",
+                            "type": "Array",
+                            "optional": true
+                        },
+                        {
+                            "name": "name",
+                            "description": "Unique identifier for this node",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "defaultChildIndex",
+                            "description": "Default output",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "doDefaultDispatch",
+                            "description": "Send packs to default output?",
+                            "type": "Boolean",
+                            "optional": true
+                        },
+                        {
+                            "name": "doOnBreak",
+                            "description": "Called on meter < 0",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "doOnMax",
+                            "description": "Called on meter = max",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "doOnOverflow",
+                            "description": "Called on meter > max",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "doOnReceive",
+                            "description": "Initial operation",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "doOnZero",
+                            "description": "Called on meter = 0",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "processOnReceive",
+                            "description": "Whether to process immediately",
+                            "type": "Boolean",
+                            "optional": true
+                        },
+                        {
+                            "name": "tags",
+                            "description": "Array of tags, or a single tag",
+                            "type": "Array",
+                            "optional": true
+                        },
+                        {
+                            "name": "value",
+                            "description": "Initial value of meter",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "valueMax",
+                            "description": "Maximum value of meter",
+                            "type": "Number",
+                            "optional": true,
+                            "optdefault": "100"
+                        }
+                    ]
+                }
+            ],
+            "since": "0.1.0"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/_damage-pipeline-main.js",
+            "line": 11,
+            "description": "The name of this plugin.",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Kiwi.Plugins.DamagePipeline",
+            "module": "Kiwi",
+            "submodule": "Plugins",
+            "namespace": "Kiwi.Plugins"
+        },
+        {
+            "file": "src/_damage-pipeline-main.js",
+            "line": 19,
+            "description": "The version of this plugin.",
+            "itemtype": "property",
+            "name": "version",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Kiwi.Plugins.DamagePipeline",
+            "module": "Kiwi",
+            "submodule": "Plugins",
+            "namespace": "Kiwi.Plugins"
+        },
+        {
+            "file": "src/_damage-pipeline-main.js",
+            "line": 27,
+            "description": "Minimum version of Kiwi.js library",
+            "itemtype": "property",
+            "name": "minimumKiwiVersion",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Kiwi.Plugins.DamagePipeline",
+            "module": "Kiwi",
+            "submodule": "Plugins",
+            "namespace": "Kiwi.Plugins"
+        },
+        {
+            "file": "src/_damage-pipeline-main.js",
+            "line": 37,
+            "description": "Registers this plugin with the Global Kiwi Plugins Manager if it is available.",
+            "class": "Kiwi.Plugins.DamagePipeline",
+            "module": "Kiwi",
+            "submodule": "Plugins",
+            "namespace": "Kiwi.Plugins"
+        },
+        {
+            "file": "src/_damage-pipeline-main.js",
+            "line": 42,
+            "description": "This create method is executed when Kiwi Game that has been told\nto use this plugin reaches the boot stage of the game loop.",
+            "itemtype": "method",
+            "name": "create",
+            "params": [
+                {
+                    "name": "game",
+                    "description": "The game that is current in the boot stage.",
+                    "type": "Kiwi.Game"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Kiwi.Plugins.DamagePipeline",
+            "module": "Kiwi",
+            "submodule": "Plugins",
+            "namespace": "Kiwi.Plugins"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 27,
+            "description": "An exhausted Pack will have no further effect.\n\tThe tree may terminate its traversal.",
+            "itemtype": "property",
+            "name": "exhausted",
+            "default": "false",
+            "type": "number",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 38,
+            "description": "Private value of this Pack.",
+            "itemtype": "property",
+            "name": "_value",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 47,
+            "description": "Sub-packs for this Pack, representing subordinate damage sources.",
+            "itemtype": "property",
+            "name": "subPacks",
+            "type": "Array",
+            "default": "[]",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 62,
+            "description": "Damage mode: add to meters.",
+            "itemtype": "property",
+            "name": "ADD",
+            "type": "number",
+            "default": "0",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 72,
+            "description": "Damage mode: set meters to constant value.",
+            "itemtype": "property",
+            "name": "SET",
+            "type": "number",
+            "default": "1",
+            "access": "public",
+            "tagname": "",
+            "final": 1,
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 83,
+            "description": "Damage mode: subtract from meters.",
+            "itemtype": "property",
+            "name": "SUBTRACT",
+            "type": "number",
+            "default": "2",
+            "access": "public",
+            "tagname": "",
+            "final": 1,
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 94,
+            "description": "Value of this Pack. If it falls to or below 0, it is exhausted.\n<BR><BR>\nWhen you modify value, it will automatically check and\n\tdiscard any exhausted subPacks. This is designed for a pipeline\n\tin which subPacks are evaluated before the parent pack.",
+            "itemtype": "property",
+            "name": "value",
+            "type": "Number",
+            "access": "public",
+            "tagname": "",
+            "final": 1,
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 117,
+            "description": "Checks for exhaustion on this and all subPacks",
+            "itemtype": "method",
+            "name": "checkExhaustion",
+            "return": {
+                "description": "The current exhaustion state of this pack",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 134,
+            "description": "Clones this Pack, along with all subpacks",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "Kiwi.Plugins.DamagePipeline.Pack"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 161,
+            "description": "Removes all subPacks that are now exhausted. You do not normally need to call\n\tthis method; it will automatically occur while modifying values.",
+            "itemtype": "method",
+            "name": "discardExhaustedSubPacks",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 180,
+            "description": "Extracts and returns a subPack from this Pack or subpacks.\n\tSome damage pipeline nodes may split packs onto different branches.\n\tIf the subPack is not found, this returns null.",
+            "itemtype": "method",
+            "name": "extractSubPack",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to extract",
+                    "type": "Pack"
+                }
+            ],
+            "return": {
+                "description": "Pack"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 207,
+            "description": "Returns a list of all subPacks and this Pack.\n\tThese will be in reverse order to a normal traversal, so this pack\n\twill be last in the list. This facilitates pipeline processing.",
+            "itemtype": "method",
+            "name": "getAllPacks",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "Array"
+            },
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 228,
+            "description": "Returns whether this pack has the specified tag.",
+            "itemtype": "method",
+            "name": "hasTag",
+            "params": [
+                {
+                    "name": "tag",
+                    "description": "Tag to check; may also be of type Number",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 240,
+            "description": "Returns whether this pack has any tag from the specified array.\n\tAn empty array is always true.",
+            "itemtype": "method",
+            "name": "hasTagInArray",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "Array of tags, either String or Number",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 265,
+            "description": "Returns the type of object that this is.",
+            "itemtype": "method",
+            "name": "objType",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 276,
+            "description": "Parses the param object and sanitizes inputs.",
+            "itemtype": "method",
+            "name": "parseParams",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The param object from the constructor.",
+                    "type": "Object"
+                }
+            ],
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 294,
+            "description": "Mode of this Pack, either ADD, SUBTRACT or SET.",
+            "itemtype": "property",
+            "name": "mode",
+            "type": "Number",
+            "default": "this.SUBTRACT",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 304,
+            "description": "Owner of this Pack. If the owner was not set, it returns null.",
+            "itemtype": "property",
+            "name": "owner",
+            "type": "Object",
+            "default": "null",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pack.js",
+            "line": 314,
+            "description": "Tags for this Pack, representing special information\n\tabout damage types such as \"fire\" or \"stun\".",
+            "itemtype": "property",
+            "name": "tags",
+            "type": "Array",
+            "default": "[]",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.Pack",
+            "module": "Kiwi.Plugins",
+            "submodule": "Pack",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 56,
+            "description": "Adds a child. The child must be a pipeline node, and cannot share a name\n\twith other children.",
+            "itemtype": "method",
+            "name": "addChild",
+            "params": [
+                {
+                    "name": "child",
+                    "description": "The child to add",
+                    "type": "Kiwi.Plugins.DamagePipeline.PipelineNode"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 81,
+            "description": "Adds a tag. The tag must be a String or Number, and cannot be a duplicate.",
+            "itemtype": "method",
+            "name": "addTag",
+            "params": [
+                {
+                    "name": "tag",
+                    "description": "Tag; can be either String or Number",
+                    "type": "String"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 97,
+            "description": "Removes all children from this node.",
+            "itemtype": "method",
+            "name": "clearChildren",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 107,
+            "description": "Removes all tags from this node.",
+            "itemtype": "method",
+            "name": "clearTags",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 117,
+            "description": "Attempts to send a pack to another node.\n\tAlways removes the pack from this node.\n\tDeals with situations where the node does not exist,\n\tor the pack is exhausted.\n\tCall this from the \"_operate()\" function.",
+            "itemtype": "method",
+            "name": "dispatch",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to dispatch",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                },
+                {
+                    "name": "node",
+                    "description": "Target node",
+                    "type": "Kiwi.Plugins.DamagePipeline.PipelineNode"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 145,
+            "description": "Attempts to send a pack to the default child node.\n\tThis is defined by \"this.defaultChildIndex\" and is normally index 0.\n\tAlways removes the pack from this node.\n\tDeals with situations where the node does not exist,\n\tor the pack is exhausted.\n\tAll packs are sent to default unless \"doDefaultDispatch\" is\n\tset to \"false\".",
+            "itemtype": "method",
+            "name": "dispatchDefault",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to dispatch",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 164,
+            "description": "Extracts and returns a pack from any parents",
+            "itemtype": "method",
+            "name": "extractPack",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to extract",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "return": {
+                "description": "Kiwi.Plugins.DamagePipeline.Pack"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 191,
+            "description": "Returns the child with this name, or null if it does not exist.\n\tSearches only direct children.",
+            "itemtype": "method",
+            "name": "getChildByName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of desired child node",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Child node",
+                "type": "Kiwi.Plugins.DamagePipeline.PipelineNode"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 212,
+            "description": "Returns whether this node has the specified tag.",
+            "itemtype": "method",
+            "name": "hasTag",
+            "params": [
+                {
+                    "name": "tag",
+                    "description": "Tag; can be either String or Number",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 228,
+            "description": "Returns the type of object that this is.",
+            "itemtype": "method",
+            "name": "objType",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 239,
+            "description": "Core method. Override with your own functions that process and/or\n\tdispatch the \"pack\" parameter.",
+            "itemtype": "method",
+            "name": "_operate",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 252,
+            "description": "Parses the params object, sets internal properties, and sanitizes input.",
+            "itemtype": "method",
+            "name": "_parseParams",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 264,
+            "description": "Child nodes of this PipelineNode to which it may pass Packs",
+            "itemtype": "property",
+            "name": "_children",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 285,
+            "description": "The master pack which will next be dispatched.",
+            "itemtype": "property",
+            "name": "_currentMasterPack",
+            "type": "Kiwi.Plugins.DamagePipeline.Pack",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 294,
+            "description": "Index of the default child, to which Packs that do not match\n\tany tags or are otherwise treated as defaults are sent.",
+            "itemtype": "property",
+            "name": "defaultChildIndex",
+            "type": "Number",
+            "default": "0",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 305,
+            "description": "Whether to send packs to the default dispatch automatically after\n\trunning operations",
+            "itemtype": "property",
+            "name": "doDefaultDispatch",
+            "type": "Boolean",
+            "default": "true",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 318,
+            "description": "The name of this node. This is used by the node's parents to select it,\n\tso it should be at least locally unique.",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "default": "\"Unnamed Node\"",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 334,
+            "description": "Signal dispatched on pack dispatch\n\twith parameters \"this\", \"pack\"",
+            "itemtype": "property",
+            "name": "onDispatch",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 344,
+            "description": "Signal dispatched on pack exhaustion\n\twith parameters \"this\", \"pack\"",
+            "itemtype": "property",
+            "name": "onExhaust",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 354,
+            "description": "List of Packs which the node has received and is currently processing.\n\tPlease use the \"receive( pack )\" method to add packs\n\tfrom other sources.",
+            "itemtype": "property",
+            "name": "_packs",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 365,
+            "description": "Whether the node will run \"process()\" immediately upon receiving\n\ta Pack. If false, you will have to manually run \"process()\".",
+            "itemtype": "property",
+            "name": "processOnReceive",
+            "type": "Boolean",
+            "default": "true",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 376,
+            "description": "Whether to process a pack top-down; that is, the master pack\n\tfollowed by its children. This is DISABLED by default.\n\tIf a top-level pack is emptied, its children will be discarded\n\tbefore they can be processed. For this reason we normally\n\tprocess bottom-up, doing the children first then their parent.\n\tHowever, in some cases it may be useful to extract the topmost\n\tcase of a tag, not the bottommost, so this flag is provided.",
+            "itemtype": "property",
+            "name": "processTopDown",
+            "type": "Boolean",
+            "default": "false",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 393,
+            "description": "List of tags on this node.\n\tThe node will pass any Packs that don't share any tags\n\ton to the child defined by \"defaultChildIndex\"\n\twithout running \"_operate()\" on those Packs.\n\tAll matching Packs will incur operation.",
+            "itemtype": "property",
+            "name": "_tags",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 417,
+            "description": "Performs the node operation on all current packs.\n\tThe operation is only performed on those packs which match a tag of \n\tthis node. If this node has no tags, all nodes are processed.\n\tAll nodes are subsequently sent to dispatchDefault unless\n\tdoDefaultDispatch has been set to false.\n\t<br><br>\n\tThe process goes through each pack bottom-up;\n\tthe deepest children are evaluated first, working up to\n\tthe root pack.\n\t<br><br>\n\tIf you want to evaluate top-down, set processTopDown to true.\n\tBe careful when evaulating top-down, as you may cause packs\n\tto be discarded with a parent before they are processed.\n\t<br><br>\n\tThis is normally called directly after damage is received.\n\tHowever, if you have not set the processOnReceive flag,\n\tit will not execute immediately. You can call it according\n\tto your own requirements.",
+            "itemtype": "method",
+            "name": "process",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 489,
+            "description": "Receives a damage pack",
+            "itemtype": "method",
+            "name": "receive",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to receive",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 510,
+            "description": "Removes a child, if it is currently a child.",
+            "itemtype": "method",
+            "name": "removeChild",
+            "params": [
+                {
+                    "name": "child",
+                    "description": "The child to remove",
+                    "type": "Kiwi.Plugins.DamagePipeline.PipelineNode"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-base.js",
+            "line": 525,
+            "description": "Removes a tag, if it is currently a tag.",
+            "itemtype": "method",
+            "name": "removeTag",
+            "params": [
+                {
+                    "name": "tag",
+                    "description": "Tag; can be either String or Number",
+                    "type": "String"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.PipelineNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "PipelineNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 55,
+            "description": "Signal dispatched on meter break\n\twith parameter \"this\"",
+            "itemtype": "property",
+            "name": "onBreak",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 65,
+            "description": "Signal dispatched on meter max\n\twith parameter \"this\"",
+            "itemtype": "property",
+            "name": "onMax",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 75,
+            "description": "Signal dispatched on meter overflow\n\twith parameter \"this\"",
+            "itemtype": "property",
+            "name": "onOverflow",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 85,
+            "description": "Signal dispatched when the meter processes a pack\n\twith parameter \"this\"",
+            "itemtype": "property",
+            "name": "onReceive",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 95,
+            "description": "Signal dispatched on meter zero\n\twith parameter \"this\"",
+            "itemtype": "property",
+            "name": "onZero",
+            "type": "Kiwi.Signal",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 112,
+            "description": "Normalized value is equal to value divided by valueMax.",
+            "itemtype": "property",
+            "name": "valueNormalized",
+            "type": "Number",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 131,
+            "description": "Parses the params object and sanitizes input",
+            "itemtype": "method",
+            "name": "_parseParams",
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 140,
+            "description": "Maximum value of the meter",
+            "itemtype": "property",
+            "name": "valueMax",
+            "type": "Number",
+            "default": "100",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 152,
+            "description": "Value of the meter",
+            "itemtype": "property",
+            "name": "value",
+            "type": "Number",
+            "default": "100",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 164,
+            "description": "Value of the meter before the current Pack operation",
+            "itemtype": "property",
+            "name": "valueLast",
+            "type": "Number",
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 199,
+            "description": "Empty method called on meter break, when the meter would go negative\n\t(that is, the meter is empty, the Pack still\n\thas value left, and the Pack is set to SUBTRACT mode).\n\tOverride this with your custom functionality.",
+            "itemtype": "method",
+            "name": "doOnBreak",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 215,
+            "description": "Empty method called on meter max, when the meter rises to maximum.\n\tMax does not occur if the meter was already at maximum.\n\tOverride this with your custom functionality.",
+            "itemtype": "method",
+            "name": "doOnMax",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 230,
+            "description": "Empty method called on meter overflow, when the meter would overflow\n\t(that is, the meter is at max, the Pack still has value left, and\n\tthe Pack is set to ADD mode).\n\tOverride this with your custom functionality.",
+            "itemtype": "method",
+            "name": "doOnOverflow",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 246,
+            "description": "Default method executed upon receiving a Pack.\n\tThis will transfer value from the Pack to the meter's value,\n\taccording to the pack mode (ADD, SUBTRACT, or SET).\n\tIf there is any value left over, it will remain in the Pack.\n\tIt is not recommended that you override this function.\n<br><br>\nWhen receiving a Pack with mode SET, this function will assign as much value\n\tto this meter as it can fit. Any leftover value will remain in the Pack.\n\tThis is intended to trigger overflow behaviour.\n\tIt might create unexpected results if the pack is not discarded.",
+            "itemtype": "method",
+            "name": "doOnReceive",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 294,
+            "description": "Empty method called on meter zero, when the meter drops to zero.\n\tZero does not occur if the meter was already at zero.\n\tOverride this with your custom functionality.",
+            "itemtype": "method",
+            "name": "doOnZero",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        },
+        {
+            "file": "src/pipeline-node-meter.js",
+            "line": 309,
+            "description": "Core method that dispatches user-defined functions. Do not override.",
+            "itemtype": "method",
+            "name": "_operate",
+            "params": [
+                {
+                    "name": "pack",
+                    "description": "Pack to process",
+                    "type": "Kiwi.Plugins.DamagePipeline.Pack"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "since": "0.1.0",
+            "class": "Kiwi.Plugins.DamagePipeline.MeterNode",
+            "module": "Kiwi.Plugins",
+            "submodule": "MeterNode",
+            "namespace": "Kiwi.Plugins.DamagePipeline"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nRegisters this plugin with the Global Kiwi Plugins Manager if it is available.",
+            "line": " src/_damage-pipeline-main.js:37"
+        }
+    ]
+}

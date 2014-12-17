@@ -73,7 +73,7 @@ Check out the [easy introductory tutorial](http://www.kiwijs.org/documentation/t
 
 ## Setup
 
-Acquire the plugin from the [GameLab GitHub page](https://github.com/gamelab).
+Acquire the plugin from the [Gamelab GitHub page](https://github.com/gamelab).
 
 Copy the plugin file (either `build/damage-pipeline-x.x.x.js` or `build/damage-pipeline-x.x.x.min.js`) into your project folder. We recommend you create a `js/plugins/` folder to reduce confusion in large projects, but this is purely optional.
 

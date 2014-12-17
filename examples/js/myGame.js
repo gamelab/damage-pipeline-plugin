@@ -305,6 +305,11 @@ MyGame.state.createPipeline = function( bar, stunBar ) {
 		healthMeter = new Kiwi.Plugins.DamagePipeline.MeterNode( {
 			name: "Health Meter",
 			doOnReceive: function( pack ) {
+
+				// doOnReceive contains the default functionality of 
+				// applying the packs damage which we do want to override.
+				// If you did not call the super you would have to add
+				// your own meter management algorthim
 				Kiwi.Plugins.DamagePipeline.MeterNode.
 					prototype.doOnReceive.call ( this, pack );
 

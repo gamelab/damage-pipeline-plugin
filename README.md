@@ -7,11 +7,19 @@ Damage Pipeline Plugin
 	Website: www.kiwijs.org
 	Kiwi.js Version Last Tested: 1.1.1
 
+# Description
+
+The Damage Pipeline is an advanced damage processing system for your [KiwiJS](http://www.kiwijs.org) games. It allows you to create composite damage packs and process them through a node-based pipeline.
+
+In fact, this system could be used for any configurable processing pipeline. Perhaps it could be used to calculate excise and spoilage on the income of a railway freight company operating in multiple countries. Any kind of process that involves performing operations on numbers in configurable ways can benefit from this plugin.
+
+Check out the [easy introductory tutorial](http://www.kiwijs.org/documentation/tutorials/damage-pipeline-plugin-tutorial/) on our website, or read on for the real nitty-gritty.
+
 # Table of Contents
+* Description
 * Table of Contents
 * Versions
 * Files/Folders
-* Description
 * How to use
 	- Setup
 	- Pipeline Objects
@@ -60,13 +68,6 @@ Damage Pipeline Plugin
 	.gitignore		- Git ignore prevents upload of working files
 	gruntfile.js	- Grunt tasks used to build plugin
 	package.json	- Package data for Grunt
-
-
-# Description
-
-The Damage Pipeline is an advanced damage processing system for your [KiwiJS](http://www.kiwijs.org) games. It allows you to create composite damage packs and process them through a node-based pipeline.
-
-In fact, this system could be used for any configurable processing pipeline. Perhaps it could be used to calculate excise and spoilage on the income of a railway freight company operating in multiple countries. Any kind of process that involves performing operations on numbers in configurable ways can benefit from this plugin.
 
 # How to use
 
